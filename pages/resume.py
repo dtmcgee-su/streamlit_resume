@@ -60,12 +60,12 @@ with main_col1:
         """
         Data Scientist | Austin, TX (Remote) | 11/2021 – 05/2024 
 
-        - Led algorithm selection and optimization, utilizing machine learning, statistical modeling, and decision  theory to control data-driven decision making. 
-        - Managed production, maintenance, and versioning of 75+ computer vision models, reducing production costs by  80% and improving data quality. 
-        - Oversaw a team creating labeled datasets, resulting in a $1,000,000.00 deal with the National Hockey League. 
-        - Automated data delivery to clients using jobs/workflows in Databricks, enhancing accessibility and efficiency with  Python, SQL, AWS, and an internal API. 
+        - Led algorithm selection and optimization, utilizing machine learning, statistical modeling, and decision theory to control data-driven decision making. 
+        - Managed production, maintenance, and versioning of 75+ computer vision models, reducing production costs by 80% and improving data quality. 
+        - Oversaw a team creating labeled datasets, resulting in a $1,000,000.00 deal with a "Big 5" sports league. 
+        - Automated data delivery to clients using jobs/workflows in Databricks, enhancing accessibility and efficiency with Python, SQL, AWS, and an internal API. 
         - Processed and analyzed big data, optimizing data pulls for 5x faster execution times via Spark and delta tables. 
-        - Integrated APIs (Sportradar, Sieve, X, Meta and more) into various data pipelines within the data science department. 
+        - Integrated APIs into various data pipelines within the data science department. 
         ---
     
         """
