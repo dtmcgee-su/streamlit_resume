@@ -1,9 +1,9 @@
 import streamlit as st
 
 # pages
-about_me = st.Page(
-    page = 'pages/about_me.py',
-    title = 'About Me',
+resume = st.Page(
+    page = 'pages/resume.py',
+    title = 'Resume',
     icon = ':material/contact_page:',
     default = True
 )
@@ -21,7 +21,7 @@ senior_thesis = st.Page(
 
 # link pages to site
 pg = st.navigation({
-    "About Me": [about_me],
+    "About Me": [resume],
     "Projects": [senior_thesis, dashboard]
 })
 
