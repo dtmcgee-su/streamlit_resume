@@ -26,16 +26,18 @@ with main_col1:
     with sub_col2:
         st.title('Dylan McGee')
         st.write('Data Scientist with 5 years of experience converting data into actionable insights across sports ticketing and brand sponsorship.')
-        if st.button('Contact Me'):
-            show_contact_form()
-
-        with open('media/pdf/dylan_mcgee_resume.pdf', "rb") as f:
-            pdf_data = f.read()
-        st.download_button(
-            label="Download Resume",
-            data=pdf_data,
-            file_name="dylan_mcgee_resume.pdf",
-            mime="application/pdf"
+        btn1, btn2 = st.columns(2, gap='small', vertical_alignment='center')
+        with btn1:
+            if st.button('Contact Me'):
+                show_contact_form()
+        with btn2:
+            with open('media/pdf/dylan_mcgee_resume.pdf', "rb") as f:
+                pdf_data = f.read()
+            st.download_button(
+                label="Download Resume",
+                data=pdf_data,
+                file_name="dylan_mcgee_resume.pdf",
+                mime="application/pdf"
 )
 
 
