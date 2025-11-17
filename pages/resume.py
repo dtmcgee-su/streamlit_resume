@@ -85,7 +85,7 @@ with main_col2:
     st.subheader('Contact Information', anchor=False, divider='gray')
     st.write(
         """
-        - :material/mark_email_read: dylan.mcgee2036@gmail.com 
+        - dylan.mcgee2036@gmail.com 
         - (315) 882-6357
         - https://www.linkedin.com/in/dmcgee20/
         - https://github.com/dtmcgee-su
