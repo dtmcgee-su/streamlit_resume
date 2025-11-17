@@ -22,9 +22,5 @@ st.download_button(
     mime="application/pdf"
 )
 
-
-
-
-
 st.image('./media/images/dylan_mcgee_senior_thesis.png',  use_container_width="always")
 

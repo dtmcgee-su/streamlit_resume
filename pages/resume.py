@@ -1,7 +1,6 @@
 import streamlit as st 
 from forms.contact import contact_form
 
-# st.title('About Me')
 
 st.html("""
     <style>
@@ -29,14 +28,12 @@ with main_col1:
         st.write('Data Scientist with 5 years of experience converting data into actionable insights across sports ticketing and brand sponsorship.')
         if st.button('Contact Me'):
             show_contact_form()
-    # st.divider()
 
 
     # experience
     st.write("\n")
     st.subheader('Experience', anchor=False, divider = 'gray')
     st.badge('Eventellect')
-    # st.badge('Data Scientest')
     st.write(
         f"""
         Data Scientist | Houston, TX | 05/2024 - 11/2025
@@ -72,8 +69,6 @@ with main_col1:
         """
         )
 
-    # Education
-
 with main_col2:
     # contact info 
     st.subheader('Contact Information', anchor=False, divider='gray')
@@ -88,10 +83,7 @@ with main_col2:
     )
 
 
-
-
     # skills
-    # st.write("\n")
     st.subheader('Skills', anchor=False, divider='gray')
     st.badge('Programming', color='green')
     st.write(
@@ -119,7 +111,6 @@ with main_col2:
         \n \n \n
         """
     )
-    # st.divider()
 
     # education
     st.subheader('Education', anchor=False, divider = 'gray')
