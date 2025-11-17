@@ -29,6 +29,15 @@ with main_col1:
         if st.button('Contact Me'):
             show_contact_form()
 
+        with open('media/pdf/dylan_mcgee_resume.pdf', "rb") as f:
+            pdf_data = f.read()
+        st.download_button(
+            label="Download Resume",
+            data=pdf_data,
+            file_name="dylan_mcgee_resume.pdf",
+            mime="application/pdf"
+)
+
 
     # experience
     st.write("\n")
