@@ -31,12 +31,12 @@ with main_col1:
             if st.button('Contact Me'):
                 show_contact_form()
         with btn2:
-            with open('media/pdf/dylan_mcgee_resume.pdf', "rb") as f:
+            with open('media/pdf/dylan_mcgee_resume_20251117.pdf', "rb") as f:
                 pdf_data = f.read()
             st.download_button(
                 label="Download Resume",
                 data=pdf_data,
-                file_name="dylan_mcgee_resume.pdf",
+                file_name="dylan_mcgee_resume_20251117.pdf",
                 mime="application/pdf"
 )
 
