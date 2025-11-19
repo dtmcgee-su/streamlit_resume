@@ -9,14 +9,6 @@ def pitch_movement_chart():
     df=df.rename(columns={'last_name, first_name': 'pitcher_name'})
 
     # Create Columns
-
-    st.subheader("Exploring Pitch Movement Data")
-    st.write(
-        """
-            Now that we have a basic understanding of the data, let's dive deeper. Use the filters on the left to customize the pitch movement scatter plot.
-        """
-    )
-
     col1, col2 = st.columns([1, 3], border=True)  # Left column is 1/4 width, right column 3/4
 
     # Left Column: Filters
@@ -73,9 +65,9 @@ def pitch_movement_chart():
         fig = px.scatter(
             filtered_df,
             x='pitcher_break_x',
-            y='pitcher_break_z',
+            y='pitcher_break_z_induced',
             color='pitch_type_name',
-            hover_data=['pitcher_name', 'avg_speed', 'pitches_thrown'],
+            hover_data=['pitcher_name', 'avg_speed', 'pitches_thrown', 'pitch_per'],
             height=600
         )
         st.plotly_chart(fig, use_container_width=True)
