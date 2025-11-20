@@ -36,8 +36,8 @@ st.write(
     """
     In today's highly competitive baseball world, finding and signing great players at a reasonable cost is crucial for building a successful team.
     This project aims to do just that for pitchers. Instead of relying on traditional stats like Wins or ERA, we dive deep into pitch design—the unique way a pitcher's ball moves through the air. \n
-    In this project, I analyze the induced vertical break and horizontal break, along with performance metrics across every pitch type for every pitcher in the dataset.
-    By defining and quantifying "elite pitch design" based on outliers in movement and efficiency (e.g., a four-seam fastball with exceptional rise or a slider with unique sweep), we move past simple velocity and usage rates. 
+    In this project, I analyze the induced vertical break and horizontal break, along with performance metrics across every pitch type for every pitcher from the 2025 season.
+    By defining and quantifying "elite pitch design" based on outliers in movement and efficiency (e.g., a four-seam fastball with exceptional rise or a slider with unique sweep), we move past simple velocity and usage rates. \n
     **The goal is to identify undervalued free-agent arms that could outperform their 2025 season with modifications to their pitch mix.**
     """
 )
@@ -179,6 +179,7 @@ st.write(
 
 st.divider()
 ##### Findings #####
+st.subheader("Findings")
 
 # Chris Bassitt
 with st.container(border=True, vertical_alignment='center'):
@@ -196,7 +197,7 @@ with st.container(border=True, vertical_alignment='center'):
             - **vert break**: 11.5
             - **xSLG**: 0.257
             - **xWOBA**: 0.24
-            - **Whiff %**: 17.8
+            - **Whiff %**: 36.4
             """
         )
 
@@ -257,7 +258,8 @@ with st.container(border=True, vertical_alignment='center'):
     )
 
 
-# Conclusion
+##### Conclusion #####
+st.subheader("Conclusion")
 st.write(
     """
         The biggest competitive advantage often comes from finding elite talent that's currently being misused.
@@ -267,20 +269,20 @@ st.write(
         The examples of Chris Bassitt's Curveball and Nick Martinez's Changeup help show this point. 
         Both pitchers have proven, effective pitches that sit in the top tier of movement and effectiveness metrics, yet they are thrown only **16% to 20%** of the time.\n
 
-        The lesson is simple: these pitchers already possess the unique, elite pitch movement; they just need a slight adjustment in utilization to potentially help on-field performance. 
+        The lesson is simple: \n 
+        **These pitchers already possess the unique, elite pitch movement; they just need a slight adjustment in utilization to potentially help on-field performance.**
     """
 )    
 st.divider()
 
 
 ##### Improvements #####
-st.subheader("Findings")
+st.subheader("Improvements and Next Steps")
 st.write(
     """
     Below are the list of changes I would like to make that could make this project stronger: \n
     - Incorporate pitch command
     - Experiment with other modeling techniques
     - Use data from multiple seasons
-    - Validate findings with actual game footage
     """
 )
