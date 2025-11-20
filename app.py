@@ -8,7 +8,7 @@ resume = st.Page(
     default = True
 )
 pfx_analysis = st.Page(
-    page = 'pages/2025_pfx_analysis.py',
+    page = 'pages/pfx_analysis.py',
     title = '2025 MLB PFX Analysis',
     icon = ':material/analytics:',
 )
