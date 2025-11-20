@@ -1,7 +1,7 @@
 import streamlit as st 
 import pandas as pd
 import plotly.express as px
-from utils.streamlit_components import pitch_movement_chart
+from utils.streamlit_components import pitch_movement_chart, pitch_performance_vs_usage
 
 
 st.html("""
@@ -47,6 +47,22 @@ with boxplot_col2:
     fig = px.box(df, x='pitch_type_name', y='avg_speed', title='Average Speed by Pitch Type', category_orders={'pitch_type_name': velo_order})
     # fig.show()
     st.plotly_chart(fig, use_container_width=True)
+
+
+st.subheader('Are The Best Performing Pitches Thrown The Most?')
+st.write(
+    """
+        In order to idenify undervalued pitches, we first need to confirm whether or not the best performing pitches are being thrown the most. \n
+        Looking at the graph below, it's clear that there is not a strong correlation between pitch percentage and success. 
+        This is likely due to the wide variety of factors that go into pitch selection, such as game situation, batter tendencies, and pitcher strategy.
+        It's also impotant to note that command for a given pitch is not factored in this analysis.
+        Nevertheless, this chart shows there are likely many pitches that are not being utilized to their full potential. \n
+        I included the average xSLG on the graph. I will spend a majority of my analysis focused on quadrant 3 (low usage, low xSLG) to find pitches that could be undervalued.
+    """
+)
+pitch_performance_vs_usage()
+
+st.divider()
 
 
 # customizable pitch movement scatter plot
