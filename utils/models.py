@@ -4,11 +4,12 @@ import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import classification_report, confusion_matrix, roc_auc_score
+from sklearn.metrics import classification_report, confusion_matrix, roc_auc_score, roc_curve, auc
 from sklearn.preprocessing import StandardScaler
 import plotly.express as px
 import plotly.graph_objects as go 
 import joblib
+import json
 
 ##### Data Cleaning, Merging #####
 df_pitch_movement = pd.read_csv('./data/pitch_movement.csv')
@@ -98,6 +99,8 @@ CONTINUOUS_FEATURES = [
     'hard_hit_percent',
 ]
 
+RANDOM_STATE = 46
+
 
 X = df_merged[X_features].copy()
 X.dropna(inplace=True)
@@ -118,7 +121,7 @@ X_train, X_test, Y_train, Y_test = train_test_split(
     X, 
     Y, 
     test_size=0.2, 
-    random_state=45, 
+    random_state=RANDOM_STATE, 
     stratify=Y
 )
 
@@ -127,7 +130,7 @@ X_train, X_test, Y_train, Y_test = train_test_split(
 ##### Model Training ######
 random_forest_model = RandomForestClassifier(
     n_estimators=100,
-    random_state=45,
+    random_state=RANDOM_STATE,
     class_weight='balanced'
 )
 
@@ -180,7 +183,12 @@ fig_cm.update_layout(
 )
 
 fig_cm.write_html('media/model_results/plotly_confusion_matrix.html')
-print("Plotly Confusion Matrix saved as 'plotly_confusion_matrix.html'")
+with open ('media/model_results/confusion_matrix.json', 'w') as f:
+    json.dump(fig_cm.to_json(), f)
+
+print("Plotly Confusion Matrix saved")
+
+
 print("-" * 50)
 
 
@@ -211,7 +219,53 @@ fig_fi.update_layout(
 )
 
 fig_fi.write_html('media/model_results/plotly_feature_importance.html')
-print("Plotly Feature Importance Plot saved as 'plotly_feature_importance.html'")
+with open ('media/model_results/feature_importance.json', 'w') as f:
+    json.dump(fig_fi.to_json(), f)
+
+print("Plotly Feature Importance Plot saved")
+
+
+
+
+##### ROC Curve #####
+fpr, tpr, thresholds = roc_curve(Y_test, Y_proba)
+roc_auc = auc(fpr, tpr)
+
+fig_roc = go.Figure(
+    data=[
+        # ROC curve
+        go.Scatter(
+            x=fpr, 
+            y=tpr, 
+            mode='lines', 
+            name=f'ROC curve (area = {roc_auc:.4f})',
+            line=dict(color='darkorange', width=2)
+        ),
+        # Random guess line
+        go.Scatter(
+            x=[0, 1], 
+            y=[0, 1], 
+            mode='lines', 
+            name='Random Guess (AUC = 0.50)',
+            line=dict(dash='dash', color='navy')
+        )
+    ],
+    layout=go.Layout(
+        title=f'Receiver Operating Characteristic (ROC) Curve (AUC: {roc_auc:.4f})',
+        xaxis=dict(title='False Positive Rate (FPR)', range=[0, 1]),
+        yaxis=dict(title='True Positive Rate (TPR)', range=[0, 1]),
+        showlegend=True,
+        legend=dict(x=0.6, y=0.1)
+    )
+)
+
+# 3. Save the figure as a JSON string for Streamlit embedding
+with open('media/model_results/roc_curve_fig.json', 'w') as f:
+    # Plotly figures must be converted to JSON before saving
+    json.dump(fig_roc.to_json(), f)
+
+print("ROC Curve Plot saved")
+
 
 
 ##### Save Model #####

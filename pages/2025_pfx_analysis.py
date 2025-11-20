@@ -1,7 +1,10 @@
+##### Imports #####
 import streamlit as st 
 import pandas as pd
 import plotly.express as px
 from utils.streamlit_components import pitch_movement_chart, pitch_performance_vs_usage
+import json
+from plotly.io import from_json
 
 
 st.html("""
@@ -13,6 +16,7 @@ st.html("""
     """
 )
 
+##### Intro ######
 df = pd.read_csv('./data/pitch_movement.csv')
 df = df.dropna()
 
@@ -30,8 +34,8 @@ st.write(
     """
 )
 st.divider()
-# NOTE: add a table for column definitions? 
 
+##### Plot 1: Box Plot #####
 boxplot_col1, boxplot_col2 = st.columns([1,3], gap='small', vertical_alignment='top', border=True)
 with boxplot_col1:
     st.write(
@@ -49,6 +53,7 @@ with boxplot_col2:
     st.plotly_chart(fig, use_container_width=True)
 
 
+##### Plot 2: Usage vs Performance #####
 st.subheader('Are The Best Performing Pitches Thrown The Most?')
 st.write(
     """
@@ -65,7 +70,7 @@ pitch_performance_vs_usage()
 st.divider()
 
 
-# customizable pitch movement scatter plot
+##### Plot 3: Pitch Movement Scatter #####
 st.subheader("Exploring Pitch Movement Data")
 st.write(
     """
@@ -77,10 +82,80 @@ st.write(
     """
 )
 pitch_movement_chart()
+st.divider()
+
+##### Modeling #####
+st.subheader("Modeling 'Elite' Pitch Design")
+st.write(
+    """
+    To quantify "elite" pitch design, I built a classification model to predict whether a given pitch is "elite" based on its movement characteristics. \n
+    For the purpose of this exercise, I determined any pitch that was within the top 25% of whiff percentage to be "elite."
+    I merged pitch movement data with pitch performance data to create a dataset for modeling. \n
+    The features used in the model are described in the table below:
+
+    """
+)
+df_features = pd.DataFrame({
+
+    'Feature': [
+                'pitch_per', 
+                'pitcher_break_z_induced', 
+                'pitcher_break_x', 
+                'avg_speed', 
+                'est_ba', 
+                'est_slg', 
+                'est_woba', 
+                'hard_hit_percent',
+                'pitch_hand'
+    ],
+    'Description': [
+                    'Percentage of times the pitch is thrown by the a given pitcher',
+                    'The vertical movement of the pitch caused by spin, measured in inches',
+                    'The horizontal movement of the pitch caused by spin, measured in inches',
+                    'The average speed of the pitch, measured in MPH',
+                    'Expected batting average against the pitch',
+                    'Expected slugging percentage against the pitch',
+                    'Expected weighted on-base average against the pitch',
+                    'Percentage of batted balls against the pitch that are classified as hard-hit (exit velocity >= 95 MPH)',
+                    'The handedness of the pitcher (L or R)'
+
+    ]
+   
+})
+st.dataframe(df_features, hide_index=True)
+
+st.write(
+    """
+        I decided to build a Random Forest Classifier for this task, as it is known to handle non-linear relationships and interactions between features well.
+        The output of the model is a classificatin whether a pitch is "elite" at swinging and missing based on its pitch design and previous performance metrics. \n
+    """
+)
+try:
+    with open('media/model_results/feature_importance.json', 'r') as f:
+        json_str = json.load(f)
+        fig_fi = from_json(json_str)
+
+    st.plotly_chart(fig_fi, use_container_width=True)
+except FileNotFoundError:
+    st.warning('Feature importance file not found.')
+
+
+try:
+    with open('media/model_results/roc_curve_fig.json', 'r') as f:
+        fig_json_string = json.load(f)
+        fig_roc = from_json(fig_json_string)
+        
+    st.subheader("Model Performance: ROC Curve")
+    st.write(f"The model achieved an **Area Under the Curve (AUC)** of **0.9418**")
+    st.plotly_chart(fig_roc, use_container_width=True) 
+    
+except FileNotFoundError:
+    st.warning("ROC Curve figure not found.")
 
 
 
 st.divider()
+##### Findings #####
 st.subheader("Findings")
 st.write(
     """
