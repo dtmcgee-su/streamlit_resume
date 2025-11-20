@@ -200,35 +200,26 @@ with st.container(border=True, vertical_alignment='center'):
             """
         )
 
-    body_col1, body_col2 = st.columns([2,3], gap='small')
-    with body_col1:
-        st.write(
-            """
-                If you look at Figure 1, you'll see a curveball that's in the upper quartile for both horizontal and induced vertical break.
-                That pitch belongs to Chris Bassitt, who surprisingly used it only **16%** of the time. 
-                With that much movement, plus factoring in the **71.3** average velocity (20 MPH slower than his fastball), the makings of this pitch look very promising.
-                However, just because the metrics look good, doesn't mean the pitch was effective.
-                \n
-                Taking a look at his pitch tracking data from last season, his curveball was his most effective pitch last year by a wide margin. (https://baseballsavant.mlb.com/savant-player/greg-weissert-669711?stats=statcast-r-pitching-mlb) \n
-                **It was among his top two pitch types in xBA. xSLG, xWOBA, exit velocity, and Whiff%.**
-                Batters hit a measly 0.182 xBA against it, along with a 36.4% Whiff rate.
-            
+    st.video('media/videos/chris_bassitt_k.mp4')
+    st.image('media/images/chris_bassitt_curveball_movement.png', caption='Figure 1')
+    st.write(
+        """
+            If you look at Figure 1, you'll see a curveball that's in the upper quartile for both horizontal and induced vertical break.
+            That pitch belongs to Chris Bassitt, who surprisingly used it only **16%** of the time. 
+            With that much movement, plus factoring in the **71.3** average velocity (20 MPH slower than his fastball), the makings of this pitch look very promising.
+            However, just because the metrics look good, doesn't mean the pitch was effective.
+            \n
+            Taking a look at his pitch tracking data from last season, his curveball was his most effective pitch last year by a wide margin. (https://baseballsavant.mlb.com/savant-player/greg-weissert-669711?stats=statcast-r-pitching-mlb) \n
+            **It was among his top two pitch types in xBA. xSLG, xWOBA, exit velocity, and Whiff%.**
+            Batters hit a measly 0.182 xBA against it, along with a 36.4% Whiff rate.
+        
 
-                \n
-                Bassitt is known for throwing many different pitches. Having a wide arsenal, giving him the ability to vary his pitch mix, could've been part of the reason why his curveball was so successful last year. 
-                Regardless, I believe increasing his curveball usage could result in a better overall season.
-            """
-        )
-    with body_col2:
-        st.video('media/videos/chris_bassitt_k.mp4')
-        st.image('media/images/chris_bassitt_curveball_movement.png', caption='Figure 1')
-
-
-
-
-
-
-
+            \n
+            Bassitt is known for throwing many different pitches. Having a wide arsenal, giving him the ability to vary his pitch mix, could've been part of the reason why his curveball was so successful last year. 
+            Regardless, I believe increasing his curveball usage could result in a better overall season.
+        """
+    )
+     
 
 
 # Nick Martinez
@@ -251,29 +242,37 @@ with st.container(border=True, vertical_alignment='center'):
             """
         )
 
-    body_col1, body_col2 = st.columns([2,3], gap='small')
-    with body_col1:
-        st.write(
-            """
-            Nick Martinez and his changeup were another interesting find.\n
-            Figure 2 shows the pitch has low usage (20%) while sigificanly under the average xSLG relative to the rest of the league (0.32 vs 0.42).
-            The pitch also has above average horizontal and vertical break relative to other changeups.
-            He throws 6 pitches, but his changeup was his best performing pitch by a wide margin. 
-            It led in all expected stats yet again. (https://baseballsavant.mlb.com/savant-player/nick-martinez-607259?stats=statcast-r-pitching-mlb#pitch_tracking) \n 
+    st.video('media/videos/nick_martinez_k.mp4')
+    st.image('media/images/nick_martinez_changeup_movement.png', caption='Figure 2')
+    st.write(
+        """
+        Nick Martinez and his changeup were another interesting find.\n
+        Figure 2 shows the pitch has low usage (20%) while sigificanly under the average xSLG relative to the rest of the league (0.32 vs 0.42).
+        The pitch also has above average horizontal and vertical break relative to other changeups.
+        He throws 6 pitches, but his changeup was his best performing pitch by a wide margin. 
+        It led in all expected stats yet again. (https://baseballsavant.mlb.com/savant-player/nick-martinez-607259?stats=statcast-r-pitching-mlb#pitch_tracking) \n 
 
-            Martinez and Bassitt are very similar in terms of having diverse arsenals with what appear to be underutilized pitches that could be improved with increased usage.
-            """
-        )
-
-    with body_col2:
-        st.video('media/videos/nick_martinez_k.mp4')
-        st.image('media/images/nick_martinez_changeup_movement.png', caption='Figure 2')
+        Martinez and Bassitt are very similar in terms of having diverse arsenals with what appear to be underutilized pitches that could be improved with increased usage.
+        """
+    )
 
 
+# Conclusion
+st.write(
+    """
+        The biggest competitive advantage often comes from finding elite talent that's currently being misused.
+        This project helps to identify these instances. \n
 
+        We used advanced data (pitch movement and performance) and a classification model to pinpoint pitches that are designed to be successful, even if their pitchers aren't fully relying on them.
+        The examples of Chris Bassitt's Curveball and Nick Martinez's Changeup help show this point. 
+        Both pitchers have proven, effective pitches that sit in the top tier of movement and effectiveness metrics, yet they are thrown only **16% to 20%** of the time.\n
 
-
+        The lesson is simple: these pitchers already possess the unique, elite pitch movement; they just need a slight adjustment in utilization to potentially help on-field performance. 
+    """
+)    
 st.divider()
+
+
 ##### Improvements #####
 st.subheader("Findings")
 st.write(
