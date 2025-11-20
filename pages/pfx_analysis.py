@@ -149,7 +149,7 @@ except FileNotFoundError:
 
 st.write(
     """
-        The feature importance chart above shows what the model believes were the most important facotrs in predicting an elite pitch.
+        The feature importance chart above shows what the model believes were the most important factors in predicting an elite pitch.
         The model is telling us that performance metrics like xSLG and xWOBA are the most important features, which makes sense.
         However, I was expecting pitch movement to weigh more. 
         It's not a surprise that veritcal movement is a better predictor than horizontal when it comes to swing-and-miss pitches.
