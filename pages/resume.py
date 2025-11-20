@@ -109,6 +109,7 @@ with main_col2:
             """
             - Git/GitHub 
             - UV
+            - MLflow
             - Streamlit
             """
         )
