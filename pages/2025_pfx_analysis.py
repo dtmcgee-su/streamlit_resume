@@ -74,21 +74,26 @@ st.write(
 
 findings_col1, findings_col2 = st.columns([2,2], gap='small', border=True)
 with findings_col1:
-    st.image('media/images/chirs_bassitt_headshot.png')
+    left_co, cent_co,last_co = st.columns(3)
+    with cent_co:
+        st.image('media/images/chirs_bassitt_headshot.png', use_container_width=True)
     st.image('media/images/chris_bassitt_curveball_movement.png', caption='Figure 1')
 with findings_col2:
     st.markdown(
         """
         **Chris Bassitt** \n
-        If you look at Figure 1, you'll see a curveball that's in the upper quartile for both horizontal and vertical break.
+        If you look at Figure 1, you'll see a curveball that's in the upper quartile for both horizontal and induced vertical break.
         That pitch belongs to Chris Bassitt, who surprisingly used it only **16%** of the time. 
-        Just because the metrics look good, doesn't mean the pitch is effective though.
-        Taking a look at his pitch tracking data from last season, we can get a better look at how succesful that pitch really was, relative to the rest of his arsenal. \n
-        His slider (and sweeper) were his most effective pitches last year by a wide margin.
-        Both pitches led in xBA. xSLG, xWOBA, and Whiff%. 
+        With that much movement, plus factoring in the **71.3** average velocity (20 MPH slower than his fastball), the makings of this pitch look very promising.
+        However, just because the metrics look good, doesn't mean the pitch was effective.
+         \n
+        Taking a look at his pitch tracking data from last season, his curveball was his most effective pitch last year by a wide margin. (https://baseballsavant.mlb.com/savant-player/greg-weissert-669711?stats=statcast-r-pitching-mlb) \n
+        **It was among his top two pitch types in xBA. xSLG, xWOBA, exit velocity, and Whiff%.**
+        Batters hit a measly 0.182 xBA against it, along with a 36.4% Whiff rate.
+       
 
         \n
-        Bassitt is known for throwing many different pitches. Having a wide arsenal could be part of the reason why his curveball was so succesfull last year. 
-        Regardless, I believe teams could see more success with him if they increased his curveball usage.
+        Bassitt is known for throwing many different pitches. Having a wide arsenal, giving him the ability to vary his pitch mix, could've been part of the reason why his curveball was so successful last year. 
+        Regardless, I believe increasing his curveball usage could result in a better overall season.
         """
     )
