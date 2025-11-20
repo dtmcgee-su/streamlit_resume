@@ -84,7 +84,6 @@ def pitch_performance_vs_usage():
     df_pitch_movement = df_pitch_movement.dropna()
     df_pitch_movement.rename(columns={'last_name, first_name': 'pitcher_name'}, inplace=True)
 
-
     # filter data for relevant columns
     df_pitch_movement = df_pitch_movement[[
         'pitcher_name',	
@@ -120,6 +119,9 @@ def pitch_performance_vs_usage():
 
     # left join on movement
     df_merged = df_pitch_movement.merge(df_pitch_stats, on='pitcherId_pitchType', how='left', suffixes=('_movement', '_stats'))
+    
+    
+    
     col1, col2 = st.columns([1,3], border=True)
     with col1:
         # Pitch Type
