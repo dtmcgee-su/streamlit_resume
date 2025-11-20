@@ -155,7 +155,7 @@ cm_df = pd.DataFrame(
     columns=['Predicted Non-Elite', 'Predicted Elite']
 )
 
-# heatmap
+# Heatmap
 fig_cm = go.Figure(data=go.Heatmap(
     z=confusion_matrix,
     x=['Predicted Non-Elite', 'Predicted Elite'],
@@ -164,7 +164,7 @@ fig_cm = go.Figure(data=go.Heatmap(
     colorbar=dict(title='Count')
 ))
 
-# add annotations
+# Add annotations
 for i in range(len(confusion_matrix)):
     for j in range(len(confusion_matrix[0])):
         fig_cm.add_annotation(
@@ -259,12 +259,21 @@ fig_roc = go.Figure(
     )
 )
 
-# 3. Save the figure as a JSON string for Streamlit embedding
+# Save the figure as a JSON string for Streamlit embedding
 with open('media/model_results/roc_curve_fig.json', 'w') as f:
     # Plotly figures must be converted to JSON before saving
     json.dump(fig_roc.to_json(), f)
 
 print("ROC Curve Plot saved")
+
+
+# Output which pitches were classified as elite
+df_test_results = X_test.copy()
+df_test_results['actual_is_elite'] = Y_test
+df_test_results['predicted_is_elite'] = Y_pred
+df_test_results['predicted_proba_elite'] = Y_proba
+df_test_results.reset_index(drop=True, inplace=True)
+df_test_results.to_csv('media/model_results/pitch_elite_test_results.csv', index=False)
 
 
 

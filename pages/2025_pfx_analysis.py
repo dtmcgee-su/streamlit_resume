@@ -88,9 +88,9 @@ st.divider()
 st.subheader("Modeling 'Elite' Pitch Design")
 st.write(
     """
-    To quantify "elite" pitch design, I built a classification model to predict whether a given pitch is "elite" based on its movement characteristics. \n
-    For the purpose of this exercise, I determined any pitch that was within the top 25% of whiff percentage to be "elite."
-    I merged pitch movement data with pitch performance data to create a dataset for modeling. \n
+    To quantify "elite" pitch design, I built a classification model to predict whether a given pitch is "elite" based on its movement and performance metrics. \n
+    For the purpose of this exercise, I classified any pitch in the top 25th percentile of Whiff Percentage as "elite," forming the target variable for the model.
+    After cleaning, I merged pitch movement and performance data together to create a dataset ready for modeling. \n
     The features used in the model are described in the table below:
 
     """
@@ -126,8 +126,8 @@ st.dataframe(df_features, hide_index=True)
 
 st.write(
     """
-        I decided to build a Random Forest Classifier for this task, as it is known to handle non-linear relationships and interactions between features well.
-        The output of the model is a classificatin whether a pitch is "elite" at swinging and missing based on its pitch design and previous performance metrics. \n
+        I decided to use a Random Forest Classifier for this task, as it is known to handle non-linear relationships and interactions between features well.
+        The output of the model is a classification whether a pitch is "elite" at swinging and missing based on its pitch design and previous performance metrics. \n
     """
 )
 try:
@@ -139,19 +139,34 @@ try:
 except FileNotFoundError:
     st.warning('Feature importance file not found.')
 
+st.write(
+    """
+        The feature importance chart above shows what the model believes were the most important facotrs in predicting an elite pitch.
+        The model is telling us that performance metrics like xSLG and xWOBA are the most important features, which makes sense.
+        However, I was expecting pitch movement to weigh more. 
+        It's not a surprise that veritcal movement is a better predictor than horizontal when it comes to swing-and-miss pitches.
+    """
+)
 
 try:
     with open('media/model_results/roc_curve_fig.json', 'r') as f:
         fig_json_string = json.load(f)
         fig_roc = from_json(fig_json_string)
         
-    st.subheader("Model Performance: ROC Curve")
-    st.write(f"The model achieved an **Area Under the Curve (AUC)** of **0.9418**")
     st.plotly_chart(fig_roc, use_container_width=True) 
     
 except FileNotFoundError:
     st.warning("ROC Curve figure not found.")
 
+st.write(
+    """
+        Above is the ROC curve from the model.
+        The Receiver Operating Characteristic (ROC) curve is a graph that shows the performance of a classification model.
+        It plots the True Positive Rate (TPR) against the False Positive Rate (FPR).
+        A perfect model would have an ROC curve that is a right angle.
+        The model achieved an **Area Under the Curve (AUC)** of **0.9418** which is considered very strong.
+    """
+)
 
 
 st.divider()
@@ -159,7 +174,8 @@ st.divider()
 st.subheader("Findings")
 st.write(
     """
-    After analyzing/visualizing pitch movement, I identified several pitches with unique movement profiles with low usage percentages that could be resulting in undervalued talent. \n
+    After analyzing/visualizing pitch movement, I identified a couple pitches with unique movement profiles with low usage percentages that could be resulting in undervalued talent.
+    Any pitch included was predicted as elite based on my model. \n
     """
 )
 
@@ -188,3 +204,16 @@ with findings_col2:
         Regardless, I believe increasing his curveball usage could result in a better overall season.
         """
     )
+
+st.divider()
+##### Improvements #####
+st.subheader("Findings")
+st.write(
+    """
+    No project is perfect, below are the list of changes I would like to make that could make this project stronger: \n
+    - Incorporate pitch command
+    - Experiment with other modeling techniques
+    - Use data from multiple seasons
+    - Validate findings with actual game footage
+    """
+)
