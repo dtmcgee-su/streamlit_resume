@@ -8,7 +8,7 @@ from sklearn.metrics import classification_report, confusion_matrix, roc_auc_sco
 from sklearn.preprocessing import StandardScaler
 import plotly.express as px
 import plotly.graph_objects as go 
-from plotly.subplots import make_subplots
+import joblib
 
 ##### Data Cleaning, Merging #####
 df_pitch_movement = pd.read_csv('./data/pitch_movement.csv')
@@ -84,7 +84,7 @@ X_features=[
 
 CATEGORICAL_FEATURES = [
     'pitch_hand',
-    'pitch_type_name',
+    # 'pitch_type_name',
 ]
 
 CONTINUOUS_FEATURES = [
@@ -105,8 +105,8 @@ X.dropna(inplace=True)
 Y = df_merged['is_elite']
 Y = Y[X.index] # Keep Y aligned with X
 
-# # One hot encode categorical variables
-# X = pd.get_dummies(X, columns=CATEGORICAL_FEATURES, drop_first=True)
+# One hot encode categorical variables
+X = pd.get_dummies(X, columns=CATEGORICAL_FEATURES, drop_first=True)
 
 scaler = StandardScaler()
 X[CONTINUOUS_FEATURES] = scaler.fit_transform(X[CONTINUOUS_FEATURES])
@@ -118,15 +118,16 @@ X_train, X_test, Y_train, Y_test = train_test_split(
     X, 
     Y, 
     test_size=0.2, 
-    random_state=42, 
-    stratify=Y)
+    random_state=45, 
+    stratify=Y
+)
 
 
 
 ##### Model Training ######
 random_forest_model = RandomForestClassifier(
     n_estimators=100,
-    random_state=42,
+    random_state=45,
     class_weight='balanced'
 )
 
@@ -178,7 +179,7 @@ fig_cm.update_layout(
     yaxis=dict(autorange='reversed') # Makes the labels appear top-to-bottom
 )
 
-fig_cm.write_html('plotly_confusion_matrix.html')
+fig_cm.write_html('media/model_results/plotly_confusion_matrix.html')
 print("Plotly Confusion Matrix saved as 'plotly_confusion_matrix.html'")
 print("-" * 50)
 
@@ -209,5 +210,10 @@ fig_fi.update_layout(
     yaxis={'categoryorder':'total ascending'} 
 )
 
-fig_fi.write_html('plotly_feature_importance.html')
+fig_fi.write_html('media/model_results/plotly_feature_importance.html')
 print("Plotly Feature Importance Plot saved as 'plotly_feature_importance.html'")
+
+
+##### Save Model #####
+joblib.dump(random_forest_model, 'media/model_results/elite_pitch_random_forest.joblib')
+print('Model saved')
