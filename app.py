@@ -7,9 +7,9 @@ resume = st.Page(
     icon = ':material/contact_page:',
     default = True
 )
-dashboard = st.Page(
-    page = 'pages/dashboard.py',
-    title = 'Dashboard',
+pfx_analysis = st.Page(
+    page = 'pages/2025_pfx_analysis.py',
+    title = '2025 MLB PFX Analysis',
     icon = ':material/analytics:',
 )
 senior_thesis = st.Page(
@@ -22,7 +22,7 @@ senior_thesis = st.Page(
 # link pages to site
 pg = st.navigation({
     "About Me": [resume],
-    "Projects": [senior_thesis, dashboard]
+    "Projects": [senior_thesis, pfx_analysis]
 })
 
 # run

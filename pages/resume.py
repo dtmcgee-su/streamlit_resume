@@ -108,6 +108,7 @@ with main_col2:
     st.write(
             """
             - Git/GitHub 
+            - MLflow
             - UV
             - Streamlit
             """
