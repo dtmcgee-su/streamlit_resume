@@ -71,5 +71,57 @@ def pitch_movement_chart():
             height=600
         )
         st.plotly_chart(fig, use_container_width=True)
+############################################################################
+
+# Do the best performing pitches get thrown the most? 
+df_pitch_movement = pd.read_csv('./data/pitch_movement.csv')
+df_pitch_stats = pd.read_csv('./data/pitch_arsenal_stats.csv')
+
+df_pitch_movement['pitcherId_pitchType'] = df_pitch_movement['pitcher_id'].astype(str) + '_' + df_pitch_movement['pitch_type']
+df_pitch_stats['pitcherId_pitchType'] = df_pitch_stats['player_id'].astype(str) + '_' + df_pitch_stats['pitch_type']
+
+# filter data for relevant columns
+df_pitch_movement = df_pitch_movement[[
+    'last_name, first_name',	
+    'pitcher_id',	
+    'team_name_abbrev',	
+    'pitch_hand',	
+    'pitch_type',
+    'pitch_type_name',
+    'avg_speed',
+    'pitches_thrown',
+    'total_pitches',
+    'pitch_break_z',
+    'pitch_break_z_induced',
+    'pitcher_break_x',
+    'pitcherId_pitchType'
+]]
+
+df_pitch_stats = df_pitch_stats[[
+    'ba',	
+    'slg',	
+    'woba',	
+    'whiff_percent',	
+    'k_percent',	
+    'put_away',	
+    'est_ba',	
+    'est_slg',	
+    'est_woba',	
+    'hard_hit_percent',
+    'pitcherId_pitchType'
+]]
+
+
+# left join on movement
+df_merged = df_pitch_movement.merge(df_pitch_stats, on='pitcherId_pitchType', how='left', suffixes=('_movement', '_stats'))
+
+px.scatter(
+    filtered_df,
+    x='pitcher_break_x',
+    y='pitcher_break_z_induced',
+    color='pitch_type_name',
+    hover_data=['pitcher_name', 'avg_speed', 'pitches_thrown', 'pitch_per'],
+    height=600
+)
 
 
