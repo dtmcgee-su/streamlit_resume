@@ -1,12 +1,14 @@
 # This script will safely scrape fight level details of a given event page from UFC Stats. Provide an event URL and this script should capture the relevant data needed.
 
-# Imports
+##### Imports #####
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 
 EVENT_URL = 'http://ufcstats.com/event-details/bd92cf5da5413d2a'
+OUTPUT_FILENAME = 'ufc_323_event_level_data.csv'
 
+##### Get Data #####
 response = requests.get(EVENT_URL)
 soup = BeautifulSoup(response.text, 'html.parser')
 if len(soup) == 0:
@@ -36,14 +38,15 @@ for row in fight_rows:
         "fighter_blue": fighter_blue,
         "red_url": fighter_red_url,
         "blue_url": fighter_blue_url,
+		"red_id": fighter_red_url.split('/')[-1],
+        "blue_id": fighter_blue_url.split('/')[-1],
         "weight_class": weight_class
     })
 
 df = pd.DataFrame(fights)
-df
 
-# Export
-df.to_csv('data/ufc_323_event_level_data.csv', index = False)
+##### Export #####
 
+df.to_csv(f'data/{OUTPUT_FILENAME}', index = False)
 
 
