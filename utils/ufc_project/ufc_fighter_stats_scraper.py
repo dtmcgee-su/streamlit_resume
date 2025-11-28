@@ -13,12 +13,10 @@ def scrape_fighter_details(url):
             return re.sub(r"\s+", " ", text).strip()
         return None
 
-    # Extract name + nickname
     name = clean(soup.select_one("span.b-content__title-highlight").text)
     nickname_elem = soup.select_one("p.b-content__Nickname")
     nickname = clean(nickname_elem.text) if nickname_elem else None
 
-    # Extract all list items (bio + stats)
     items = soup.select("li.b-list__box-list-item")
 
     data = {}
@@ -46,7 +44,7 @@ def scrape_fighter_details(url):
         "slpm": data.get("slpm"),
         "sapm": data.get("sapm"),
         "str_acc": data.get("str. acc."),
-        "str_def": data.get("str. def."),
+        "str_def": data.get("str. def"),
 
         # grappling
         "td_avg": data.get("td avg."),
