@@ -17,12 +17,16 @@ senior_thesis = st.Page(
     title = 'Senior Thesis',
     icon = ':material/insert_chart:'
 )
-
+ufc_323_analysis = st.Page(
+    page = 'pages/ufc_323_analysis.py',
+    title = 'UFC 323 Analysis',
+    icon = ':material/sports_mma:'
+)
 
 # link pages to site
 pg = st.navigation({
     "About Me": [resume],
-    "Projects": [senior_thesis, pfx_analysis]
+    "Projects": [senior_thesis, pfx_analysis, ufc_323_analysis],
 })
 
 # run
