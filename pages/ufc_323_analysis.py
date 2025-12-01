@@ -18,6 +18,8 @@ st.markdown("""
     .centered-subheader {
         text-align: center;
     }
+    .small-font {
+    font-size: 12px !important;      
     </style>
     """, unsafe_allow_html=True
 )
@@ -50,11 +52,15 @@ match = st.selectbox(
     format_func=lambda i: f"{df.loc[i, 'fighter_red']} vs. {df.loc[i, 'fighter_blue']}"
 )
 
-# row = df.loc[match]
+row = df.loc[match]
+
+# Fighter dictionaries
+red = {k.replace("red_", ""): v for k, v in row.items() if k.startswith("red_")}
+blue = {k.replace("blue_", ""): v for k, v in row.items() if k.startswith("blue_")}
 
 
 
-##### Basic Matchup Details #####
+##### Matchup Details #####
 st.subheader(f"Matchup: {df.loc[match, 'fighter_red']} vs. {df.loc[match, 'fighter_blue']}")
 
 col1, col2 = st.columns(2, border=True)
@@ -77,3 +83,72 @@ with col2:
     st.markdown(f"**Reach:** {df.loc[match, 'blue_reach']}")
     st.markdown(f"**Stance:** {df.loc[match, 'blue_stance']}")
     st.markdown(f"**DOB:** {df.loc[match, 'blue_dob']}")
+
+
+
+def radar_chart(f1, f2, name1, name2):
+    categories = [
+        "Strikes Landed per Min", 
+        "Strikes Absorbed per Min (lower is better)", 
+        "Striking Accuracy", 
+        "Striking Defense",
+        "Takedown Avg", 
+        "Takedown Accuracy", 
+        "Takedown Defense", 
+        "Submission Avg"]
+    
+
+    f1_vals = [
+        float(f1['slpm'] or 0),
+        10 - float(f1['sapm'] or 0),  # invert because lower is better
+        float(f1['str_acc'].replace('%','')) / 10 if f1['str_acc'] else 0,
+        float(f1['str_def'].replace('%','')) / 10 if f1['str_def'] else 0,
+        float(f1['td_avg'] or 0),
+        float(f1['td_acc'].replace('%','')) / 10 if f1['td_acc'] else 0,
+        float(f1['td_def'].replace('%','')) / 10 if f1['td_def'] else 0,
+        float(f1['sub_avg'] or 0)
+    ]
+
+    f2_vals = [
+        float(f2['slpm'] or 0),
+        10 - float(f2['sapm'] or 0),
+        float(f2['str_acc'].replace('%','')) / 10 if f2['str_acc'] else 0,
+        float(f2['str_def'].replace('%','')) / 10 if f2['str_def'] else 0,
+        float(f2['td_avg'] or 0),
+        float(f2['td_acc'].replace('%','')) / 10 if f2['td_acc'] else 0,
+        float(f2['td_def'].replace('%','')) / 10 if f2['td_def'] else 0,
+        float(f2['sub_avg'] or 0)
+    ]
+
+    fig = go.Figure()
+
+    fig.add_trace(go.Scatterpolar(
+        r=f1_vals,
+        theta=categories,
+        fill='toself',
+        name=name1,
+        line_color='blue',
+        showlegend=True,
+    ))
+
+    fig.add_trace(go.Scatterpolar(
+        r=f2_vals,
+        theta=categories,
+        fill='toself',
+        name=name2,
+        line_color='red',
+        showlegend=True
+    ))
+
+    fig.update_layout(
+        polar=dict(
+            radialaxis=dict(visible=True)
+        ),
+        showlegend=True,
+        height=550
+    )
+
+    return fig
+
+radar_fig = radar_chart(red, blue, df.loc[match, 'fighter_red'], df.loc[match, 'fighter_blue'])
+st.plotly_chart(radar_fig, use_container_width=True)
