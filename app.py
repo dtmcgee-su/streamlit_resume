@@ -22,6 +22,11 @@ ufc_323_analysis = st.Page(
     title = 'UFC 323 Analysis',
     icon = ':material/sports_mma:'
 )
+fantasy_baseball_draft_analysis = st.Page(
+    page = 'pages/fantasy_baseball_draft_analysis.py',
+    title = 'Fantasy Baseball Draft Tool (MVP)',
+    icon = ':material/sports_baseball:',
+)
 
 # link pages to site
 pg = st.navigation({
