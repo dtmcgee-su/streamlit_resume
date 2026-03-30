@@ -22,11 +22,16 @@ ufc_323_analysis = st.Page(
     title = 'UFC 323 Analysis',
     icon = ':material/sports_mma:'
 )
+pitch_charts = st.Page(
+    page = 'pages/pitch_charts.py',
+    title = '2026 MLB Pitch Charts',
+    icon = ':material/sports_baseball:',
+)
 
 # link pages to site
 pg = st.navigation({
     "About Me": [resume],
-    "Projects": [senior_thesis, pfx_analysis, ufc_323_analysis],
+    "Projects": [senior_thesis, pfx_analysis, ufc_323_analysis, pitch_charts],
 })
 
 # run
