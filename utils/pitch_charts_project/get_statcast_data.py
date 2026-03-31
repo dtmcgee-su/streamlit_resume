@@ -14,8 +14,8 @@ def get_statcast_data(start_date: str, end_date: str, filename: str):
     df = pybaseball.statcast(start_date, end_date)
 
     cols = [
-        "game_date", "pitcher", "player_name", "batter", "pitch_type",
-        "release_speed", "plate_x", "plate_z", "description", "events",
+        "game_date", "pitcher", "player_name", "batter", "pitch_type", "pitch_name",
+        "type","release_speed", "plate_x", "plate_z", "description", "events",
         "balls", "strikes", "outs_when_up", "stand", "p_throws",
         "inning", "home_team", "away_team", "sz_top", "sz_bot"
     ]
@@ -34,6 +34,6 @@ def get_statcast_data(start_date: str, end_date: str, filename: str):
 # pulling data in week long increment to avoid timeouts
 if __name__ == "__main__":
     start_date = "2026-03-25"
-    end_date = "2026-03-29"
+    end_date = "2026-03-30"
     filename = "data/statcast_2026.parquet"
     df = get_statcast_data(start_date, end_date, filename)
